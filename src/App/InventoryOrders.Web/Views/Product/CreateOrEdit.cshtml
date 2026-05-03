@@ -1,0 +1,50 @@
+﻿@model InventoryOrders.Application.ViewModel.ProductVm
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">
+                @(Model.Id > 0 ? "Edit Product" : "Create Product")
+            </h2>
+
+            <form asp-action="CreateOrEdit" method="post" asp-controller="Product">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter product name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="SKU" class="form-label">SKU</label>
+                    <input asp-for="SKU" class="form-control" placeholder="Enter unique SKU" />
+                    <span asp-validation-for="SKU" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label">Price</label>
+                    <input asp-for="Price" class="form-control" placeholder="Enter price" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="QuantityInStock" class="form-label">Quantity In Stock</label>
+                    <input asp-for="QuantityInStock" class="form-control" placeholder="Enter stock quantity" />
+                    <span asp-validation-for="QuantityInStock" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    @(Model.Id > 0 ? "Update" : "Create")
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

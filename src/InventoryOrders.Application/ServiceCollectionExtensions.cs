@@ -5,6 +5,7 @@ using InventoryOrders.Application.Logging;
 using InventoryOrders.Application.Repositories.Auth;
 using InventoryOrders.Application.Services;
 using InventoryOrders.Application.Services.Pdf;
+using InventoryOrders.Application.Repositories;
 
 namespace InventoryOrders.Application;
 
@@ -19,6 +20,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPdfService, PdfService>();
         services.AddScoped<IExcelImportService, ExcelImportService>();
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
     }
 }
