@@ -89,17 +89,14 @@ public class AccountController(
             TempData["AlertMessage"] = "Registration successful!";
             TempData["AlertType"] = "success";
             _logger.LogInfo($"User {user.Email} registered and logged in successfully.");
-            var roles = await _signInManager.UserManager.GetRolesAsync(user);
-            if (roles.Contains("Administrator")) return LocalRedirect("/Dashboard");
-            if (roles.Contains("Student")) return LocalRedirect("/Home");
+            return RedirectToAction("Index", "Dashboard");
 
-            return LocalRedirect("/");
         }
 
         TempData["AlertMessage"] = "User created but failed to log in.";
         TempData["AlertType"] = "warning";
         _logger.LogWarning($"User created but failed to log in. Email: {model.Email}");
-        return LocalRedirect("/");
+        return View(model);
     }
    
 

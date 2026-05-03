@@ -116,13 +116,13 @@
         .login-footer a {
             color: #2563eb;
             text-decoration: none;
+            font-weight: 600;
         }
 
             .login-footer a:hover {
                 text-decoration: underline;
             }
 
-    /* Responsive */
     @@media (max-width: 480px) {
         .login-card {
             padding: 28px 20px;
@@ -134,6 +134,7 @@
         }
     }
 </style>
+
 <div class="login-page">
     <div class="login-card">
         <h2 class="login-title">Sign In</h2>
@@ -150,11 +151,15 @@
 
             <div class="form-group">
                 <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn-login">Login</button>
         </form>
+
+        <div class="login-footer">
+            Don't have an account? <a asp-controller="Account" asp-action="Register">Register</a>
+        </div>
     </div>
 </div>

@@ -17,13 +17,8 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         }, new Role
         {
             Id = 2,
-            Name = "EventManager",
-            NormalizedName = "EVENTMANAGER",
-        }, new Role
-        {
-            Id = 3,
-            Name = "Student",
-            NormalizedName = "STUDENT"
+            Name = "User",
+            NormalizedName = "USER"
         });
     }
 }
