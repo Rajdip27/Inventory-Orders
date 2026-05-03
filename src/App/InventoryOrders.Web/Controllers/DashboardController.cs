@@ -1,38 +1,33 @@
-﻿using InventoryOrders.Application.CommonModel;
+﻿using InventoryOrders.Application.Repositories;
+using InventoryOrders.Application.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryOrders.Web.Controllers;
 
 [Authorize]
-public class DashboardController : Controller
+public class DashboardController(IDashboardRepository _dashboardRepository) : Controller
 {
-    public IActionResult Index()
+    
+
+    [HttpGet]
+    public async Task<IActionResult> Index(CancellationToken cancellationToken = default)
     {
-        // Replace with real DB data
-        ViewBag.TotalProducts = 120;
-        ViewBag.TotalOrders = 45;
-        ViewBag.TotalSales = 78500;
-        ViewBag.LowStockCount = 8;
-
-        ViewBag.RecentOrders = new[]
-        {
-            new { Id = 101, CustomerName = "Raj", OrderDate = DateTime.Now.AddDays(-1), TotalAmount = 2500 },
-            new { Id = 102, CustomerName = "Amit", OrderDate = DateTime.Now.AddDays(-2), TotalAmount = 1800 }
-        };
-
-        ViewBag.LowStockProducts = new[]
-        {
-            new { Name = "Laptop", SKU = "LP1001", QuantityInStock = 2 },
-            new { Name = "Mouse", SKU = "MS2002", QuantityInStock = 4 }
-        };
-
-        return View();
+        var model = await _dashboardRepository.GetDashboardAsync(cancellationToken);
+        return View(model);
     }
 
     [HttpPost]
     public IActionResult SetTimeZone([FromBody] TimeZoneRequest request)
     {
+        if (request == null || string.IsNullOrWhiteSpace(request.TimeZone))
+            return BadRequest(new { success = false, message = "Time zone is required." });
+
         return Json(new { success = true, timeZone = request.TimeZone });
     }
+}
+
+public class TimeZoneRequest
+{
+    public string TimeZone { get; set; } = string.Empty;
 }
