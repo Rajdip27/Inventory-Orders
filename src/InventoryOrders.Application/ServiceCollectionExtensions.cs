@@ -21,6 +21,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IExcelImportService, ExcelImportService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
 
     }
 }

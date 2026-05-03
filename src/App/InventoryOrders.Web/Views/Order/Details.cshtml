@@ -1,0 +1,85 @@
+﻿@using InventoryOrders.Application.ViewModel
+@model OrderVm
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h3 class="mb-1">Order Details</h3>
+                    <p class="text-muted mb-0">Order #@Model.Id</p>
+                </div>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="ri-arrow-left-line"></i> Back
+                </a>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light">
+                        <strong>Customer Name</strong>
+                        <div>@Model.CustomerName</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light">
+                        <strong>Order Date</strong>
+                        <div>@Model.OrderDate.ToString("dd-MMM-yyyy hh:mm tt")</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light">
+                        <strong>Total Amount</strong>
+                        <div class="fw-bold text-success">@Model.TotalAmount.ToString("0.00")</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width:70px;">SL</th>
+                            <th>Product</th>
+                            <th style="width:120px;">Quantity</th>
+                            <th style="width:140px;">Unit Price</th>
+                            <th style="width:140px;">Line Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sl = 1;
+                        }
+                        @if (Model.Items != null && Model.Items.Any())
+                        {
+                            foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>@sl</td>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.UnitPrice.ToString("0.00")</td>
+                                    <td>@item.LineTotal.ToString("0.00")</td>
+                                </tr>
+                                sl++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">
+                                    No order items found
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

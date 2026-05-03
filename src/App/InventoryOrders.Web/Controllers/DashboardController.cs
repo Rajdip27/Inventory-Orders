@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using InventoryOrders.Application.CommonModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryOrders.Web.Controllers;
@@ -27,5 +28,11 @@ public class DashboardController : Controller
         };
 
         return View();
+    }
+
+    [HttpPost]
+    public IActionResult SetTimeZone([FromBody] TimeZoneRequest request)
+    {
+        return Json(new { success = true, timeZone = request.TimeZone });
     }
 }
