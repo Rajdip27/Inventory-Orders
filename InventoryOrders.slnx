@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/InventoryOrders.Application/InventoryOrders.Application.csproj" />
+    <Project Path="src/InventoryOrders.Core/InventoryOrders.Core.csproj" />
+    <Project Path="src/InventoryOrders.Infrastructure/InventoryOrders.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/App/">
+    <Project Path="src/App/InventoryOrders.Web/InventoryOrders.Web.csproj" />
+  </Folder>
+</Solution>

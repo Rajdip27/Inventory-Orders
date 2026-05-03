@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.WebUtilities
+@using InventoryOrders.Application.CommonModel
+@using InventoryOrders.Application.Helpers
+@model IPaginationModel
+
+@{
+    var pages = PaginationHelper.GeneratePageList(Model); // int for page numbers, string for ellipsis
+
+    // Keep current query string values
+    var query = Context.Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString());
+
+    string BuildUrl(int pageNum)
+    {
+        query["page"] = pageNum.ToString();
+        query["pageSize"] = Model.PageSize.ToString();
+        return QueryHelpers.AddQueryString(Context.Request.Path, query);
+    }
+
+    // Helper to render a page button (link or disabled)
+    void RenderPageButton(string text, bool enabled, int targetPage = 1, bool isActive = false)
+    {
+        if (enabled)
+        {
+            <a class="page-btn @(isActive ? "active" : "")" href="@BuildUrl(targetPage)">@text</a>
+            ;
+        }
+        else
+        {
+            <span class="page-btn disabled">@text</span>
+            ;
+        }
+    }
+}
+
+<link href="~/css/pagination.css" rel="stylesheet" />
+
+<div class="pages-container">
+    <div class="pages">
+        <!-- First & Previous -->
+        @{
+            RenderPageButton("«", Model.PageNumber > 1, 1);
+            RenderPageButton("‹", Model.PageNumber > 1, Model.PageNumber - 1);
+        }
+
+        <!-- Dynamic page numbers -->
+        @foreach (var p in pages)
+        {
+            if (p is string)
+            {
+                RenderPageButton(p.ToString()!, false);
+            }
+            else
+            {
+                int pageNum = (int)p;
+                RenderPageButton(pageNum.ToString(), true, pageNum, pageNum == Model.PageNumber);
+            }
+        }
+
+        <!-- Next & Last -->
+        @{
+            RenderPageButton("›", Model.PageNumber < Model.TotalPages, Model.PageNumber + 1);
+            RenderPageButton("»", Model.PageNumber < Model.TotalPages, Model.TotalPages);
+        }
+    </div>
+
+    <div id="pageInfo">
+        মোট @Model.TotalItems টি, পেজ @Model.PageNumber/@Model.TotalPages
+    </div>
+</div>

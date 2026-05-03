@@ -1,0 +1,160 @@
+﻿@model InventoryOrders.Application.ViewModel.Auth.LoginViewModel
+@{
+    Layout = null;
+}
+<style>
+    /* login.css */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1f2937;
+    }
+
+    .login-page {
+        width: 100%;
+        max-width: 420px;
+        padding: 20px;
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 18px;
+        padding: 40px 32px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+    }
+
+    .login-title {
+        margin: 0 0 8px;
+        font-size: 28px;
+        font-weight: 700;
+        color: #111827;
+        text-align: center;
+    }
+
+    .login-subtitle {
+        margin: 0 0 28px;
+        font-size: 14px;
+        color: #6b7280;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.2s ease;
+        background: #fff;
+    }
+
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+    .text-danger {
+        display: block;
+        margin-top: 6px;
+        font-size: 13px;
+        color: #dc2626;
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 12px 16px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-top: 8px;
+    }
+
+        .btn-login:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+    .login-footer {
+        margin-top: 18px;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+        .login-footer a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+            .login-footer a:hover {
+                text-decoration: underline;
+            }
+
+    /* Responsive */
+    @@media (max-width: 480px) {
+        .login-card {
+            padding: 28px 20px;
+            border-radius: 14px;
+        }
+
+        .login-title {
+            font-size: 24px;
+        }
+    }
+</style>
+<div class="login-page">
+    <div class="login-card">
+        <h2 class="login-title">Sign In</h2>
+        <p class="login-subtitle">Welcome back! Please login to continue.</p>
+
+        <form asp-action="Login" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+
+            <div class="form-group">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+    </div>
+</div>

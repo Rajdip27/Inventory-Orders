@@ -1,0 +1,93 @@
+﻿/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 40px;
+}
+
+/* Form card */
+form {
+    background-color: #fff;
+    padding: 30px 25px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: auto;
+}
+
+/* Form group */
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+/* Input & select */
+.custom-input,
+.custom-select {
+    width: 100%;
+    padding: 14px 12px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+    /* Focus effect */
+    .custom-input:focus,
+    .custom-select:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 0 5px rgba(76,175,80,0.5);
+        outline: none;
+    }
+
+/* Error state */
+.required {
+    border-color: #ff4d4d !important;
+    background-color: #fff6f6;
+}
+
+/* Valid state */
+.valid {
+    border-color: #4CAF50 !important;
+    background-color: #f0fff4;
+}
+
+/* Error message */
+.custom-error {
+    color: #ff4d4d;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Checkbox spacing */
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+/* Submit button */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+/* Responsive */
+@media (max-width: 600px) {
+    form {
+        padding: 25px 20px;
+    }
+}

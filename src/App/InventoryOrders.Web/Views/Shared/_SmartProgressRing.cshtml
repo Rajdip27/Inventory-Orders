@@ -1,0 +1,75 @@
+﻿@* Partial for Smart Progress Ring Loader *@
+<div id="smartProgressRing"
+     style="display:@(ViewBag.Show == true ? "flex" : "none");
+            position:fixed; inset:0; justify-content:center; align-items:center;
+            background: rgba(0,0,0,0.4); z-index:9999;">
+    <div style="position: relative; width:120px; height:120px;">
+        <svg class="progress-ring" width="120" height="120">
+            <circle class="progress-ring-bg" cx="60" cy="60" r="54"></circle>
+            <circle class="progress-ring-circle" cx="60" cy="60" r="54"></circle>
+        </svg>
+        <div class="stats"
+             style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+                    text-align:center; font-size:12px; color:#00ff9d; font-family:monospace;">
+            <div class="stat" id="files">0 files</div>
+            <div class="stat" id="speed">0 MB/s</div>
+            <div class="stat" id="time">0s</div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .progress-ring-bg {
+        fill: transparent;
+        stroke: #2d3748;
+        stroke-width: 4;
+    }
+
+    .progress-ring-circle {
+        fill: transparent;
+        stroke: #00ff9d;
+        stroke-width: 4;
+        stroke-linecap: round;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+        stroke-dasharray: 339.292;
+        stroke-dashoffset: 339.292;
+        animation: progress 2s ease-in-out infinite alternate;
+    }
+
+    @@keyframes progress {
+        0% {
+            stroke-dashoffset: 339.292;
+        }
+
+        100% {
+            stroke-dashoffset: 0;
+        }
+    }
+</style>
+
+<script>
+    let loaderStatsInterval;
+
+    function updateStats() {
+        const files = Math.floor(Math.random() * 100);
+        const speed = (Math.random() * 10).toFixed(1);
+        const time = (Math.random() * 5).toFixed(1);
+
+        document.getElementById('files').textContent = `${files} files`;
+        document.getElementById('speed').textContent = `${speed} MB/s`;
+        document.getElementById('time').textContent = `${time}s remaining`;
+    }
+
+    function showLoader() {
+        const loader = document.getElementById('smartProgressRing');
+        loader.style.display = 'flex';
+        loaderStatsInterval = setInterval(updateStats, 500);
+    }
+
+    function hideLoader() {
+        const loader = document.getElementById('smartProgressRing');
+        loader.style.display = 'none';
+        clearInterval(loaderStatsInterval);
+    }
+</script>

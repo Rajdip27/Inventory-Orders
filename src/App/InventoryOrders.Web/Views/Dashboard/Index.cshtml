@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold">Dashboard</h2>
+            <p class="text-muted">Inventory & Order Management Overview</p>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 bg-primary text-white">
+                <div class="card-body">
+                    <h6 class="card-title">Total Products</h6>
+                    <h3 class="fw-bold">@ViewBag.TotalProducts</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 bg-success text-white">
+                <div class="card-body">
+                    <h6 class="card-title">Total Orders</h6>
+                    <h3 class="fw-bold">@ViewBag.TotalOrders</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 bg-warning text-dark">
+                <div class="card-body">
+                    <h6 class="card-title">Total Sales</h6>
+                    <h3 class="fw-bold">₹@ViewBag.TotalSales</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 bg-danger text-white">
+                <div class="card-body">
+                    <h6 class="card-title">Low Stock Items</h6>
+                    <h3 class="fw-bold">@ViewBag.LowStockCount</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Recent Orders -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Recent Orders</h5>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.RecentOrders != null)
+                            {
+                                foreach (var order in ViewBag.RecentOrders)
+                                {
+                                    <tr>
+                                        <td>#@order.Id</td>
+                                        <td>@order.CustomerName</td>
+                                        <td>@order.OrderDate.ToString("dd-MMM-yyyy")</td>
+                                        <td>₹@order.TotalAmount</td>
+                                        <td>
+                                            <a asp-controller="Order" asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-primary">
+                                                View
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Low Stock Alert -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Low Stock Alert</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.LowStockProducts != null)
+                    {
+                        foreach (var product in ViewBag.LowStockProducts)
+                        {
+                            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>
+                                    <strong>@product.Name</strong><br />
+                                    <small class="text-muted">SKU: @product.SKU</small>
+                                </div>
+                                <span class="badge bg-danger">@product.QuantityInStock left</span>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">No low stock products.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
